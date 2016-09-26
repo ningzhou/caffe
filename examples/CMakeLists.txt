@@ -2,14 +2,18 @@ file(GLOB_RECURSE examples_srcs "${PROJECT_SOURCE_DIR}/examples/*.cpp")
 
 foreach(source_file ${examples_srcs})
   # get file name
+  message(STATUS "source_file = ${source_file}")
   get_filename_component(name ${source_file} NAME_WE)
     
+  message(STATUS "name = ${name}")
   # get folder name
   get_filename_component(path ${source_file} PATH)
   get_filename_component(folder ${path} NAME_WE)
     
   add_executable(${name} ${source_file})
   target_link_libraries(${name} ${Caffe_LINK})
+  set_property(TARGET ${name} PROPERTY CXX_STANDARD 11)
+  set_property(TARGET ${name} PROPERTY CXX_STANDARD_REQUIRED ON)
   caffe_default_properties(${name})
 
   # set back RUNTIME_OUTPUT_DIRECTORY
